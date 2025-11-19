@@ -12,6 +12,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Health check for Render
+app.get("/", (req, res) => {
+  res.send("Emoto Backend is running 🎉");
+});
+
 app.post("/chat", async (req, res) => {
   const userMsg = req.body.message;
 
@@ -30,4 +35,6 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Server running on 3000"));
+// IMPORTANT FIX FOR RENDER
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
